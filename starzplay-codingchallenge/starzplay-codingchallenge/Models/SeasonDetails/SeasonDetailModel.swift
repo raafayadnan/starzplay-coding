@@ -10,7 +10,7 @@ import Foundation
 struct SeasonDetailResponse: Codable {
     let id: String
     let airDate: String?
-    let episodes: [Episode]
+    let episodes: [SeasonEpisode]
     let name: String
     let overview: String
     let seasonID: Int

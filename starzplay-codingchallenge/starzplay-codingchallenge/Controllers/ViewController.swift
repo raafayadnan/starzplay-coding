@@ -134,8 +134,10 @@ class ViewController: UIViewController {
             
 //            let firstIndexPath = IndexPath(item: 0, section: 0)
 //            self.seasonTitleCollectionView.selectItem(at: firstIndexPath, animated: false, scrollPosition: .centeredHorizontally)
-            if let firstSeason = self.viewModel.tvShow?.seasons.first {
-                self.viewModel.getSeasonDetails(seasonNumber: firstSeason.seasonNumber)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                if let firstSeason = self.viewModel.tvShow?.seasons.first {
+                    self.viewModel.getSeasonDetails(seasonNumber: firstSeason.seasonNumber)
+                }
             }
         }
     }
@@ -167,6 +169,12 @@ class ViewController: UIViewController {
     }
     
     @IBAction func playControlTapped(_ sender: Any) {
+        
+        DispatchQueue.main.async {
+            let playerVC = VideoPlayerViewController()
+            playerVC.modalPresentationStyle = .fullScreen
+            self.present(playerVC, animated: true, completion: nil)
+        }
         
     }
     
@@ -206,9 +214,11 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
         DispatchQueue.main.async {
             collectionView.reloadData()
         }
-        if let season = self.viewModel.tvShow?.seasons[indexPath.item] {
-            self.viewModel.getSeasonDetails(seasonNumber: season.seasonNumber)
-        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+            if let season = self.viewModel.tvShow?.seasons[indexPath.item] {
+                self.viewModel.getSeasonDetails(seasonNumber: season.seasonNumber)
+            }
+        })
     }
 }
 extension ViewController: UITableViewDelegate, UITableViewDataSource {

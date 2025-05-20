@@ -88,14 +88,18 @@ class APIWrapper {
                             parameters:[String:Any]? = [:],
                             encoding : ParameterEncoding,
                             completionHandler: @escaping(Bool,Int,Data,String)->()) {
+
+//        var urlRequest = URLRequest(url: url)
+//        urlRequest.timeoutInterval = 120
         
-        AF.request(url, method: method, parameters: parameters, encoding: encoding).responseData { response in
+        AF.request(url, method: method, parameters: parameters, encoding: encoding).validate().responseData { response in
             completionHandler(response.response?.statusCode == CONFIGS.Response.API_CODE_SUCCESS_OK,
                               response.response?.statusCode ?? -999,
                               response.data ?? Data(),
                               response.error?.localizedDescription ?? "")
             
         }
-        
+
     }
+
 }

@@ -37,7 +37,7 @@ class EpisodeCell: UITableViewCell {
     @IBOutlet weak var titleLbl: UILabel!
     @IBOutlet weak var download: UIButton!
     
-    func updateView(_ item: Episode, viewModel: ViewModel) {
+    func updateView(_ item: SeasonEpisode, viewModel: ViewModel) {
         thumbnail.sd_setImage(with: URL(string: viewModel.baseImageURL + (item.stillPath ?? "")),
                               placeholderImage: UIImage(named: "thumbnail"), options: .continueInBackground)
         
